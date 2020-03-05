@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Start a New Topic{% endblock title %}
+{% block content %}
+  <div class="container">
+      <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item">Boards</li>
+        <li class="breadcrumb-item active">{{ board.name }}</li>
+        <li class="breadcrumb-item active">New topic</li>
+      </ol>
+      <h2>New Topic</h2>
+      <form action="" method="post">
+        {% csrf_token %}
+        {{ tform.as_p }}
+        <button class="btn btn-success" type="submit">Submit</button>
+      </form>
+  </div>
+{% endblock content %}
+

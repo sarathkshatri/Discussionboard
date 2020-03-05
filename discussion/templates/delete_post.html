@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Start a New Topic{% endblock title %}
+{% block content %}
+  <div class="container">
+      <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item">Boards</li>
+        <li class="breadcrumb-item">{{ post.topic.board.name }}</li>
+        <li class="breadcrumb-item">{{post.topic.subject}}</li>
+        <li class="breadcrumb-item active">Delete post</li>
+      </ol>
+  </div>
+  <div class="content-section">
+    <form method="POST">
+        {%csrf_token%}
+        <fieldset class="form-group">
+            <legend class="border_bottom mb-4">Reply Delete</legend>
+            <h2>Are you sure you wanted to delete the post ?</h2>
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-danger" type="submit">Delete</button>
+            <a class="btn btn-outline-secondary" href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}">Cancel</a>
+        </div>
+    </form>
+  </div>
+
+{% endblock content %}

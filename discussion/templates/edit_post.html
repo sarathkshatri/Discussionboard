@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Start a New Topic{% endblock title %}
+{% block content %}
+  <div class="container">
+      <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item">Boards</li>
+        <li class="breadcrumb-item">{{ post.topic.board.name }}</li>
+        <li class="breadcrumb-item">{{post.topic.subject}}</li>
+        <li class="breadcrumb-item active">Edit post</li>
+      </ol>
+  </div>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+       <br/>
+       <button class="btn btn-info ml-2" type="submit">Save Changes</button>
+       <a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+    </form>
+{% endblock content %}

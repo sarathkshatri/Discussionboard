@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+ <div class="container">
+      <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item">Boards</li>
+        <li class="breadcrumb-item active">{{ post.name }}</li>
+      </ol>
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Topic</th>
+            <th>Starter</th>
+            <th>Replies</th>
+            <th>Views</th>
+            <th>Last Update</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for topic in topics %}
+            <tr>
+              <td>
+                  <a href="{% url 'topic_posts' post.pk topic.pk %}" style="position: relative;"> {{ topic.subject }}</a>
+                <small class="text-muted d-block">{{ topic.author }}</small>
+              </td>
+              <td class="align-middle">{{ topic.author }}</td>
+              <td class="align-middle">{{ topic.replies }}</td>
+              <td class="align-middle">{{ topic.views }}</td>
+              <td>{{topic.last_updated}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+ </div>
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}{{ top.topic }}{% endblock %}
+{% block content %}
+  <ol class="breadcrumb my-4">
+    <li class="breadcrumb-item"><a href="#">Boards</a></li>
+    <li class="breadcrumb-item"><a href="#">{{ top.board.name }}</a></li>
+    <li class="breadcrumb-item">{{ top.subject }}</li>
+    <li class="breadcrumb-item active">Post a reply</li>
+  </ol>
+  <form action="" method="post">
+      {% csrf_token %}
+      {{ replyform|crispy }}
+    <br/>
+    <button class="btn btn-info ml-2" type="submit">Save</button>
+  </form>
+{% endblock %}
