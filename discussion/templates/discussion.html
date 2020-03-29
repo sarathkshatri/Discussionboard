@@ -5,6 +5,12 @@
       <ol class="breadcrumb my-4">
         <li class="breadcrumb-item active">Boards</li>
       </ol>
+      {% if request.user.is_superuser %}
+       <div class="mb-4">
+           <a href="{% url 'board'  %}" class="btn btn-primary" role="button">New Board</a>
+           <a href="{% url 'export_boards_xls'  %}" class="btn btn-primary" role="button">Export</a>
+       </div>
+     {% endif %}
       <table class="table">
         <thead class="thead-inverse">
           <tr>
@@ -18,7 +24,7 @@
           {% for board in board %}
             <tr>
               <td>
-                  <a href="#" style="position: relative;"> {{ board.name }}</a>
+                  <a href="{% url 'discussion_topic' board.pk %}" style="position: relative;"> {{ board.name }}</a>
                 <small class="text-muted d-block">{{ board.description }}</small>
               </td>
               <td class="align-middle">{{ board.get_posts_count }}</td>

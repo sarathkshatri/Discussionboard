@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
+import datetime
 
 class Board(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -49,3 +50,6 @@ class Post(models.Model):
 
     class Meta:
         verbose_name_plural = "Post"
+
+
+

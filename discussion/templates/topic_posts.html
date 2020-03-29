@@ -4,12 +4,15 @@
 
 {% block content %}
   <ol class="breadcrumb my-4">
-    <li class="breadcrumb-item"><a href="#">Boards</a></li>
-    <li class="breadcrumb-item"><a href="#">{{ top.board.name }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'discussion' %}">Boards</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'discussion_topic' top.board.pk %}">{{ top.board.name }}</a></li>
     <li class="breadcrumb-item active">{{ top.subject }}</li>
   </ol>
   <div class="mb-4">
-    <a href="#" class="btn btn-primary" role="button">Reply</a>
+    <a href="{% url 'reply_topic' top.board.pk top.pk %}" class="btn btn-primary" role="button">Reply</a>
+    {% if request.user.is_superuser %}
+      <a href="{% url 'export_posts_xls' %}" class="btn btn-primary" role="button">Exports Posts</a>
+    {% endif %}
   </div>
   {% for post in top.posts.all %}
     <div class="card">
@@ -27,7 +30,8 @@
         <p>{{post.message}}</p>
         {% if post.created_by == user %}
           <div class="mt-3">
-            <a href="#" class="btn btn-primary " role="button">Edit</a>
+            <a href="{% url 'edit_post' post.topic.board.pk post.topic.pk post.pk %}" class="btn btn-primary " role="button">Edit</a>
+            <a href="{% url 'delete_post' post.topic.board.pk post.topic.pk post.pk %}" class="btn btn-danger " role="button">Delete</a>
           </div>
         {% endif %}
       </div>

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users',
     'discussion',
     'crispy_forms',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -137,15 +138,22 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'asad.team3',
+EMAIL_HOST_PASSWORD = 'sarath08',
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
 
 # Update database configuration with $DATABASE_URL.
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
-DATABASES['default'] = dj_database_url.config()
+#db_from_env = dj_database_url.config(conn_max_age=500)
+#DATABASES['default'].update(db_from_env)
+#DATABASES['default'] = dj_database_url.config()
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
@@ -160,3 +168,4 @@ try:
     from .local_settings import *
 except ImportError:
     pass
+

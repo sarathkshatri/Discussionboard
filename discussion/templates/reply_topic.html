@@ -3,9 +3,9 @@
 {% block title %}{{ top.topic }}{% endblock %}
 {% block content %}
   <ol class="breadcrumb my-4">
-    <li class="breadcrumb-item"><a href="#">Boards</a></li>
-    <li class="breadcrumb-item"><a href="#">{{ top.board.name }}</a></li>
-    <li class="breadcrumb-item">{{ top.subject }}</li>
+    <li class="breadcrumb-item"><a href="{% url 'discussion' %}">Boards</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'discussion_topic' top.board.pk %}">{{ top.board.name }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'topic_posts' top.board.pk top.pk %}">{{ top.subject }}</a></li>
     <li class="breadcrumb-item active">Post a reply</li>
   </ol>
   <form action="" method="post">

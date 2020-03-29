@@ -1,20 +1,18 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-{% block title %}Start a New Topic{% endblock title %}
+{% block title %}Start a New Board{% endblock title %}
 {% block content %}
   <div class="container">
       <ol class="breadcrumb my-4">
         <li class="breadcrumb-item"><a href="{% url 'discussion' %}">Boards</a></li>
-          <li class="breadcrumb-item"><a href="{% url 'discussion_topic' board.pk %}">{{ board }}</a></li>
-        <li class="breadcrumb-item active">New topic</li>
+        <li class="breadcrumb-item active">New Board</li>
       </ol>
-      <h2>New Topic</h2>
+      <h2>New Board</h2>
       <form action="" method="post">
         {% csrf_token %}
-        {{ tform|crispy }}
+        {{ bform|crispy }}
       <br>
         <button class="btn btn-success" type="submit">Submit</button>
       </form>
   </div>
 {% endblock content %}
-

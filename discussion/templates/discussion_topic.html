@@ -2,9 +2,15 @@
 {% block content %}
  <div class="container">
       <ol class="breadcrumb my-4">
-        <li class="breadcrumb-item">Boards</li>
+        <li class="breadcrumb-item"><a href="{% url 'discussion' %}">Boards</a></li>
         <li class="breadcrumb-item active">{{ post.name }}</li>
       </ol>
+     {% if request.user.is_superuser %}
+       <div class="mb-4">
+           <a href="{% url 'new_topic' post.pk %}" class="btn btn-primary" role="button">New Topic</a>
+           <a href="{% url 'export_topics_xls'  %}" class="btn btn-primary" role="button">Export Topics</a>
+       </div>
+     {% endif %}
       <table class="table">
         <thead class="thead-inverse">
           <tr>
