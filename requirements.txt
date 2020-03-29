@@ -12,3 +12,4 @@ whitenoise==4.0
 django-storages==1.7.2
 boto3==1.9.234
 psycopg2==2.7.5
+django-import-export
