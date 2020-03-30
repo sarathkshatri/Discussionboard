@@ -23,6 +23,32 @@ def discussion(request):
 
 @login_required()
 @user_passes_test(lambda u: u.is_superuser)
+def edit_board(request,pk):
+    board = get_object_or_404(Board, pk=pk)
+    if request.method == "POST":
+        form = BoardForm(request.POST, instance=board)
+        if form.is_valid():
+            boardform = form.save(commit=False)
+            # topicform.subject = Topic.subject
+            #boardform.author = request.user
+            boardform.save()
+            print(boardform.name)
+            messages.success(request, f'Your Board has been updated')
+            return redirect('discussion')
+    else:
+        # edit
+        form = BoardForm(instance=board)
+    return render(request, 'board_edit.html', {'form': form})
+
+@login_required()
+@user_passes_test(lambda u: u.is_superuser)
+def delete_board(request,pk):
+    board = get_object_or_404(Board, pk=pk)
+    board.delete()
+    return redirect('discussion')
+
+@login_required()
+@user_passes_test(lambda u: u.is_superuser)
 def new_board(request):
     if request.method == 'GET':
 
@@ -77,6 +103,35 @@ def new_topic(request, pk):
             messages.success(request, f'Your Topic has been updated')
             return redirect('discussion_topic', pk=board.pk)
 
+@login_required()
+@user_passes_test(lambda u: u.is_superuser)
+def edit_topic(request,pk, topic_pk):
+    topic = get_object_or_404(Topic, board__pk=pk, pk=topic_pk)
+    board = get_object_or_404(Board, pk=pk)
+    if request.method == "GET":
+        form = NewTopicForm(instance= topic)
+        context = {
+            'form': form,
+            'topic': topic
+        }
+        return render(request, 'edit_topic.html', context)
+    if request.method == 'POST':
+        form = NewTopicForm(request.POST, instance=topic)
+        if form.is_valid():
+            topicform = form.save(commit=False)
+            topicform.author = request.user
+            topicform.save()
+            print(topicform.board)
+            messages.success(request, f'Your Topic has been updated')
+            return redirect('discussion_topic', pk=board.pk)
+
+@login_required()
+@user_passes_test(lambda u: u.is_superuser)
+def delete_topic(request,pk, topic_pk):
+    topic = get_object_or_404(Topic, board__pk=pk, pk=topic_pk)
+    board = get_object_or_404(Board, pk=pk)
+    topic.delete()
+    return redirect('discussion_topic', pk=board.pk)
 
 
 @login_required()

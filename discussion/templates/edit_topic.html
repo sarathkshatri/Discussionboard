@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Topic Edit{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item"><a href="{% url 'discussion' %}">Boards</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'discussion_topic' topic.board.pk %}">{{ topic }}</a></li>
+        <li class="breadcrumb-item active">Edit topic</li>
+    </ol>
+    <form method="POST" class="board-form">
+        {% csrf_token %}
+
+        {{ form|crispy }}
+        <br>
+        <button type="submit" class="save btn btn-default">Update</button>
+    </form>
+</div>
+{% endblock content %}

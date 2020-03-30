@@ -4,8 +4,12 @@ from . import views
 
 urlpatterns = [
   path('', views.discussion, name ='discussion'),
+  path('<int:pk>/edit/', views.edit_board, name='edit_board'),
+  path('<int:pk>/delete/', views.delete_board, name='delete_board'),
   path('new/', views.new_board, name = 'board'),
   path('<int:pk>/', views.discussion_topic, name = 'discussion_topic'),
+  path('<int:pk>/topics/<int:topic_pk>/edit/',views.edit_topic, name = 'edit_topic'),
+  path('<int:pk>/topics/<int:topic_pk>/delete/', views.delete_topic, name='delete_topic'),
   path('<int:pk>/new/', views.new_topic, name = 'new_topic'),
   #path('<int:pk>/topics/<int:topic_pk>', views.topic_posts, name='topic_posts'),
   url('(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.topic_posts, name='topic_posts'),

@@ -19,6 +19,9 @@
             <th>Replies</th>
             <th>Views</th>
             <th>Last Update</th>
+            {% if request.user.is_superuser %}
+                <th>Actions</th>
+             {% endif %}
           </tr>
         </thead>
         <tbody>
@@ -32,6 +35,12 @@
               <td class="align-middle">{{ topic.replies }}</td>
               <td class="align-middle">{{ topic.views }}</td>
               <td>{{topic.last_updated}}</td>
+              {% if request.user.is_superuser %}
+                  <td><a href="{% url 'edit_topic' topic.board.pk topic.pk %}" class="btn btn-warning">Edit</a></td>
+                  <td><a href="{% url 'delete_topic' topic.board.pk topic.pk %}"
+                               onclick="return confirm('Are you sure you want to delete?')"
+                               class="btn btn-danger">Delete</a ></td>
+              {% endif %}
             </tr>
           {% endfor %}
         </tbody>
