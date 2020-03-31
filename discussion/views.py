@@ -141,7 +141,7 @@ def topic_posts(request, pk, topic_pk):
     top.save()
     return render(request, 'topic_posts.html', {'top': top})
 
-@login_required
+@login_required()
 def reply_topic(request, pk, topic_pk):
     top = get_object_or_404(Topic, board__pk=pk, pk=topic_pk)
     if request.method == 'POST':
@@ -198,7 +198,8 @@ class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin, DeleteView):
             return True
         return False
 
-@login_required
+@login_required()
+@user_passes_test(lambda u: u.is_superuser)
 def export_boards_excel(request):
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment;' \
@@ -236,6 +237,7 @@ def export_boards_excel(request):
 
 
 @login_required()
+@user_passes_test(lambda u: u.is_superuser)
 def export_topics_excel(request):
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment;' \
@@ -273,6 +275,7 @@ def export_topics_excel(request):
 
 
 @login_required()
+@user_passes_test(lambda u: u.is_superuser)
 def export_posts_excel(request):
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment;' \
